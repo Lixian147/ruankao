@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>软考 · C语言策略模式填空练习</title>
+<style>
+:root{--bg:#f4f6fb;--ink:#17233c;--mute:#6e7a92;--line:#dfe5ef;--blue:#355def;--lite:#edf1ff;--good:#15855e}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}.shell{max-width:740px;margin:auto;padding:17px 14px 50px}.top{padding:22px 20px;background:linear-gradient(125deg,#19347f,#3e61e4);color:white;border-radius:19px}.eyebrow{font-size:12px;letter-spacing:1px;opacity:.8}.top h1{font-size:24px;line-height:1.3;margin:10px 0}.top p{margin:0;opacity:.9;font-size:13px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px;box-shadow:0 3px 16px #273c7310}.card h2{font-size:17px;margin:0 0 12px}.card p{margin:9px 0}.sub{color:var(--mute);font-size:13px}.tbl{width:100%;border-collapse:collapse;font-size:13px}.tbl th,.tbl td{border:1px solid var(--line);padding:9px 7px;text-align:left}.tbl th{background:#f4f6ff}.codewrap{overflow-x:auto;background:#131c2e;border-radius:12px;padding:16px 12px}.code{margin:0;color:#e8eeff;font:12.3px/1.85 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;white-space:pre;tab-size:2}.blank{color:#ffc66e;font-weight:bold}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.item{border:1px solid var(--line);border-radius:12px;padding:11px}.item label{font-size:13px;color:var(--mute);display:block;margin-bottom:6px}.item input{width:100%;height:41px;padding:8px 10px;font:14px ui-monospace,Consolas,monospace;border:1px solid #cdd5e5;border-radius:9px;outline:none;min-width:0}.item input:focus{border-color:var(--blue)}.feedback{font-size:12px;margin-top:5px;min-height:16px}.good{color:var(--good)}.bad{color:#bf4936}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}button{border:none;border-radius:11px;padding:11px 16px;font-weight:650;font-size:14px;cursor:pointer;background:var(--blue);color:white}button.secondary{background:var(--lite);color:#2f50bd}button.ghost{background:#f0f2f6;color:#56647d}.answerbox{display:none;background:#f6f8ff;border-radius:12px;padding:14px;margin-top:14px;border:1px solid #dce4ff}.answerbox.show{display:block}.explain{font-size:13px;color:#48556d;padding:5px 0;border-bottom:1px dashed #dfe5ef}.explain:last-child{border:0}.answercode{background:#16213a;color:#e6edff;padding:12px;border-radius:10px;overflow:auto;font-size:12px}.callout{background:#f0f5ff;border-left:3px solid #5578ee;padding:12px;border-radius:5px;font-size:13px}.foot{text-align:center;color:#8993a7;font-size:12px;margin-top:20px}@media(max-width:380px){.shell{padding:10px 10px 36px}.card{padding:14px}.answers{gap:8px}.item{padding:8px}.code{font-size:11.3px}}
+</style>
+</head>
+<body><main class="shell">
+<header class="top"><div class="eyebrow">软考案例题 · 设计模式 · 15分</div><h1>飞机飞行模拟系统</h1><p>C 语言代码填空 · 策略模式（Strategy）</p></header>
+<section class="card"><h2>一、题目说明</h2><p>某软件公司拟开发一款飞机飞行模拟系统。不同类型的飞机具有不同的起飞方式和飞行方式。系统需要支持以后增加新的飞机种类，以及新的起飞或飞行行为。</p><p>开发人员决定采用<strong>策略模式</strong>。由于 C 语言不提供 Java 风格的接口、类和继承，本题使用<strong>结构体 + 函数指针</strong>来模拟可动态替换的行为策略。</p><table class="tbl"><thead><tr><th>飞机类型</th><th>起飞方式</th><th>飞行方式</th></tr></thead><tbody><tr><td>直升机 Helicopter</td><td>垂直起飞</td><td>亚音速飞行</td></tr><tr><td>客机 AirPlane</td><td>长距离起飞</td><td>亚音速飞行</td></tr><tr><td>歼击机 Fighter</td><td>长距离起飞</td><td>超音速飞行</td></tr><tr><td>鹞式战斗机 Harrier</td><td>垂直起飞</td><td>超音速飞行</td></tr></tbody></table><p class="sub">假设各策略函数输出对应方式的文字信息。所有空格均填写合法的 C 语言代码，标识符区分大小写。</p></section>
+<section class="card"><h2>二、阅读以下 C 语言代码</h2><div class="codewrap"><pre class="code">#include &lt;stdio.h&gt;
+
+/* 飞行方式策略 */
+typedef void (*FlyBehavior)(void);
+
+void subSonicFly(void) {
+    printf("亚音速飞行！\n");
+}
+void superSonicFly(void) {
+    printf("超音速飞行！\n");
+}
+
+/* 起飞方式策略 */
+typedef void (*TakeOffBehavior)(void);
+
+void verticalTakeOff(void) {
+    printf("垂直起飞！\n");
+}
+void longDistanceTakeOff(void) {
+    printf("长距离起飞！\n");
+}
+
+/* 飞机抽象结构 */
+typedef struct {
+    <span class="blank">_____（1）_____</span> flyBehavior;
+    <span class="blank">_____（2）_____</span> takeOffBehavior;
+} AirCraft;
+
+void fly(AirCraft *plane) {
+    <span class="blank">_____（3）_____</span>;
+}
+
+void takeOff(AirCraft *plane) {
+    <span class="blank">_____（4）_____</span>;
+}
+
+/* 生成直升机 */
+AirCraft createHelicopter(void) {
+    AirCraft helicopter;
+    helicopter.flyBehavior = <span class="blank">_____（5）_____</span>;
+    helicopter.takeOffBehavior = <span class="blank">_____（6）_____</span>;
+    return helicopter;
+}
+
+/* 运行期间切换飞行策略 */
+void setFlyBehavior(AirCraft *plane,
+                    FlyBehavior behavior) {
+    <span class="blank">_____（7）_____</span>;
+}
+
+int main(void) {
+    AirCraft helicopter = createHelicopter();
+    takeOff(&amp;helicopter);
+    fly(&amp;helicopter);
+
+    setFlyBehavior(&amp;helicopter, superSonicFly);
+    fly(&amp;helicopter);
+    return 0;
+}</pre></div></section>
+<section class="card"><h2>三、问题（15分）</h2><p>请填入代码中（1）～（7）处的语句或标识符，使程序能够完成相应的功能。其中第（3）、（4）、（7）空应填写完整的 C 语句。</p><p class="sub">先自己写答案，再点击“批改答案”。也可以直接展开标准答案与解析。</p><div class="answers" id="inputs"></div><div class="actions"><button id="grade" type="button">批改答案</button><button id="toggle" class="secondary" type="button" aria-expanded="false">查看答案与解析</button><button id="reset" class="ghost" type="button">清空重做</button></div><div id="result" class="sub" aria-live="polite" style="margin-top:9px"></div><div id="answerbox" class="answerbox"><strong>参考答案</strong><div id="solution"></div><p class="callout">关键理解：策略模式把容易变化的行为独立出来。C 语言可以把函数地址保存到函数指针变量中，从而让同一架飞机在运行时切换飞行方式，而不必修改飞机结构体的定义。</p><strong>程序输出</strong><pre class="answercode">垂直起飞！
+亚音速飞行！
+超音速飞行！</pre></div></section><p class="foot">离线可用 · 手机浏览器直接打开 · 原创 C 语言改编练习</p>
+</main><script>
+const data=[
+ {a:'FlyBehavior',why:'FlyBehavior 是 typedef 定义的函数指针类型，用于保存飞行策略。'},
+ {a:'TakeOffBehavior',why:'TakeOffBehavior 是起飞方式的函数指针类型。'},
+ {a:'plane->flyBehavior();',why:'通过结构体指针访问 flyBehavior 字段，再调用它所指向的函数。'},
+ {a:'plane->takeOffBehavior();',why:'通过函数指针调用当前飞机所配置的起飞策略。'},
+ {a:'subSonicFly',why:'直升机默认采用亚音速飞行，把对应函数名赋给函数指针。'},
+ {a:'verticalTakeOff',why:'直升机采用垂直起飞策略，赋值为该函数名。'},
+ {a:'plane->flyBehavior = behavior;',why:'把传入的新策略地址赋给飞机的 flyBehavior 字段，以实现运行时切换。'}
+];
+const inputs=document.getElementById('inputs');const solution=document.getElementById('solution');
+data.forEach((d,i)=>{let item=document.createElement('div');item.className='item';let label=document.createElement('label');label.htmlFor='q'+i;label.textContent='（'+(i+1)+'）';let input=document.createElement('input');input.id='q'+i;input.autocomplete='off';input.spellcheck=false;input.placeholder='填写代码';input.setAttribute('aria-label','第'+(i+1)+'空');let fb=document.createElement('div');fb.id='f'+i;fb.className='feedback';item.append(label,input,fb);inputs.append(item);let expl=document.createElement('div');expl.className='explain';let b=document.createElement('b');b.textContent='（'+(i+1)+'） '+d.a;let p=document.createElement('div');p.textContent=d.why;expl.append(b,p);solution.append(expl)});
+const normalize=s=>s.replace(/\s+/g,'').replace(/;$/,'').replace(/\(\*plane\)\./g,'plane->');
+document.getElementById('grade').onclick=()=>{let n=0;data.forEach((d,i)=>{let v=document.getElementById('q'+i).value.trim();let ok=normalize(v)===normalize(d.a);if(i===2)ok ||= normalize(v)==='(*plane).flyBehavior()';if(i===3)ok ||= normalize(v)==='(*plane).takeOffBehavior()';if(i===6)ok ||= normalize(v)==='(*plane).flyBehavior=behavior';if(i===4)ok ||= normalize(v)==='&subSonicFly';if(i===5)ok ||= normalize(v)==='&verticalTakeOff';let fb=document.getElementById('f'+i);fb.textContent=!v?'尚未填写':ok?'✓ 正确':'✕ 请再想想';fb.className='feedback '+(!v?'':ok?'good':'bad');if(ok)n++});document.getElementById('result').textContent='答对 '+n+' / 7 空。'+(n===7?' 全部正确！':' 可以继续修改后重新批改。')};
+document.getElementById('toggle').onclick=()=>{let box=document.getElementById('answerbox'),open=box.classList.toggle('show');document.getElementById('toggle').textContent=open?'收起答案与解析':'查看答案与解析';document.getElementById('toggle').setAttribute('aria-expanded',String(open))};
+document.getElementById('reset').onclick=()=>{data.forEach((_,i)=>{document.getElementById('q'+i).value='';document.getElementById('f'+i).textContent=''});document.getElementById('result').textContent='';document.getElementById('answerbox').classList.remove('show');document.getElementById('toggle').textContent='查看答案与解析';document.getElementById('toggle').setAttribute('aria-expanded','false')};
+</script></body></html>
